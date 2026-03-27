@@ -1,121 +1,101 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+/* ============================================
+   App.jsx — The Tourist's Food Compass
+   Main app shell with state-based navigation
+   between Home, Explore, and Details screens
+   ============================================ */
+
+import { useState, useCallback } from 'react';
+import './App.css';
+
+import HomeScreen from './components/HomeScreen';
+import ExploreScreen from './components/ExploreScreen';
+import DetailsScreen from './components/DetailsScreen';
+import BottomNav from './components/BottomNav';
+import EtiquetteModal from './components/EtiquetteModal';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Navigation state
+  const [activeScreen, setActiveScreen] = useState('home');
+  const [selectedDish, setSelectedDish] = useState(null);
+  const [categoryFilter, setCategoryFilter] = useState(null);
+
+  // Track whether the Nshima etiquette modal has been shown
+  const [hasSeenNshimaModal, setHasSeenNshimaModal] = useState(false);
+  const [showEtiquetteModal, setShowEtiquetteModal] = useState(false);
+
+  // Navigate to a screen
+  const handleNavigate = useCallback((screen) => {
+    setActiveScreen(screen);
+    if (screen !== 'details') {
+      setSelectedDish(null);
+    }
+    // Scroll to top on screen change
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Select a dish and navigate to details
+  const handleSelectDish = useCallback(
+    (dish) => {
+      setSelectedDish(dish);
+      setActiveScreen('details');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Trigger Nshima etiquette modal on first view
+      if (dish.name === 'Nshima' && !hasSeenNshimaModal) {
+        setTimeout(() => {
+          setShowEtiquetteModal(true);
+          setHasSeenNshimaModal(true);
+        }, 800);
+      }
+    },
+    [hasSeenNshimaModal]
+  );
+
+  // Go back from details to explore
+  const handleBack = useCallback(() => {
+    setActiveScreen('explore');
+    setSelectedDish(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Set category filter from home screen and navigate to explore
+  const handleCategoryFilter = useCallback((filterTags) => {
+    setCategoryFilter(filterTags?.[0] || null);
+  }, []);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="max-w-lg mx-auto bg-cream min-h-screen relative overflow-x-hidden">
+      {/* Screen content */}
+      {activeScreen === 'home' && (
+        <HomeScreen
+          onNavigate={handleNavigate}
+          onCategoryFilter={handleCategoryFilter}
+        />
+      )}
 
-      <div className="ticks"></div>
+      {activeScreen === 'explore' && (
+        <ExploreScreen
+          onSelectDish={handleSelectDish}
+          initialFilter={categoryFilter}
+        />
+      )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {activeScreen === 'details' && (
+        <DetailsScreen dish={selectedDish} onBack={handleBack} />
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Bottom navigation (hidden on details screen) */}
+      {activeScreen !== 'details' && (
+        <BottomNav activeScreen={activeScreen} onNavigate={handleNavigate} />
+      )}
+
+      {/* Nshima etiquette modal */}
+      <EtiquetteModal
+        isOpen={showEtiquetteModal}
+        onClose={() => setShowEtiquetteModal(false)}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
