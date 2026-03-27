@@ -28,7 +28,7 @@ export default function BottomNav({ activeScreen, onNavigate }) {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-t border-earth-100 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
-      <div className="max-w-lg mx-auto flex justify-around items-center py-2 px-4">
+      <div className="max-w-lg sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto flex justify-around items-center py-2 sm:py-3 px-4 sm:px-8">
         {tabs.map((tab) => {
           const isActive = activeScreen === tab.id;
           return (

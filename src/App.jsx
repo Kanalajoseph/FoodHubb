@@ -64,7 +64,7 @@ function App() {
   }, []);
 
   return (
-    <div className="max-w-lg mx-auto bg-cream min-h-screen relative overflow-x-hidden">
+    <div className="max-w-lg sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto bg-cream min-h-screen relative overflow-x-hidden">
       {/* Screen content */}
       {activeScreen === 'home' && (
         <HomeScreen

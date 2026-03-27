@@ -4,6 +4,27 @@
    No APIs or database connections used
    ============================================ */
 
+// Image imports
+import nshimaImg from '../assets/food/nshima.jpeg';
+import ifisashiImg from '../assets/food/ifisashi.jpeg';
+import chikandaImg from '../assets/food/chikanda.jpeg';
+import kapentaImg from '../assets/food/kapenta.jpeg';
+import vitumbuwaImg from '../assets/food/vitumbuwa.jpeg';
+import chibwantuImg from '../assets/food/chibwantu.jpeg';
+import munkoyoImg from '../assets/food/munkoyo.jpeg';
+import heroImg from '../assets/food/hero.jpeg';
+import marketImg from '../assets/food/market.jpeg';
+import nshimaSpreadImg from '../assets/food/nshima-spread.jpeg';
+import roastedCornImg from '../assets/food/roasted-corn.jpeg';
+
+// Export hero/scene images for use in components
+export const sceneImages = {
+  hero: heroImg,
+  market: marketImg,
+  nshimaSpread: nshimaSpreadImg,
+  roastedCorn: roastedCornImg,
+};
+
 // All Zambian dishes with full details
 export const dishes = [
   {
@@ -11,6 +32,7 @@ export const dishes = [
     name: 'Nshima',
     subtitle: 'The Heart of Zambian Cuisine',
     emoji: '🍚',
+    image: nshimaImg,
     description:
       'Nshima is the staple food of Zambia, made from finely ground maize (corn) flour. It is cooked into a thick porridge-like consistency and served with various relishes. No Zambian meal is complete without it.',
     culturalContext:
@@ -39,6 +61,7 @@ export const dishes = [
     name: 'Ifisashi',
     subtitle: 'Peanut & Greens Stew',
     emoji: '🥜',
+    image: ifisashiImg,
     description:
       'Ifisashi is a rich, creamy stew made from ground peanuts (groundnuts) cooked with leafy green vegetables like pumpkin leaves, cassava leaves, or kale. It is one of Zambia\'s most beloved vegetarian dishes.',
     culturalContext:
@@ -70,6 +93,7 @@ export const dishes = [
     name: 'Chikanda',
     subtitle: 'African Polony',
     emoji: '🫓',
+    image: chikandaImg,
     description:
       'Often called "African Polony," Chikanda is a unique Zambian delicacy made from wild orchid tubers, groundnuts, and chili. It has a firm, sausage-like texture and a distinctive earthy flavor.',
     culturalContext:
@@ -100,6 +124,7 @@ export const dishes = [
     name: 'Kapenta',
     subtitle: 'Dried Lake Sardines',
     emoji: '🐟',
+    image: kapentaImg,
     description:
       'Kapenta are tiny, dried sardine-like fish from Lake Kariba and Lake Tanganyika. They are fried or stewed with tomatoes and onions and served as a protein-rich relish alongside Nshima.',
     culturalContext:
@@ -131,6 +156,7 @@ export const dishes = [
     name: 'Vitumbuwa',
     subtitle: 'Sweet Fried Fritters',
     emoji: '🍩',
+    image: vitumbuwaImg,
     description:
       'Vitumbuwa are delicious fried dough balls — Zambia\'s version of doughnuts. Made from a simple batter of flour, sugar, and yeast, they are deep-fried until golden and crispy on the outside, soft on the inside.',
     culturalContext:
@@ -162,6 +188,7 @@ export const dishes = [
     name: 'Chibwantu',
     subtitle: 'Traditional Sweet Drink',
     emoji: '🥤',
+    image: chibwantuImg,
     description:
       'Chibwantu is a traditional Zambian non-alcoholic beverage made from fermented maize meal and millet. It has a slightly sweet and tangy taste and is wonderfully refreshing.',
     culturalContext:
@@ -192,6 +219,7 @@ export const dishes = [
     name: 'Munkoyo',
     subtitle: 'Root-Brewed Refresher',
     emoji: '🍵',
+    image: munkoyoImg,
     description:
       'Munkoyo is a popular traditional Zambian drink brewed from maize and the roots of the Munkoyo plant. It has a distinctive, mildly sweet and earthy flavor with natural probiotic benefits.',
     culturalContext:
@@ -225,6 +253,7 @@ export const categories = [
     id: 'nshima',
     name: 'Nshima & Relishes',
     emoji: '🍚',
+    image: nshimaSpreadImg,
     description: 'The heart of every Zambian meal',
     gradient: 'from-terracotta-400 to-terracotta-600',
     filterTags: ['staple', 'relish'],
@@ -233,6 +262,7 @@ export const categories = [
     id: 'street',
     name: 'Street Food',
     emoji: '🍢',
+    image: marketImg,
     description: 'Flavors from the bustling markets',
     gradient: 'from-maize-400 to-maize-600',
     filterTags: ['street food', 'snack'],
@@ -241,6 +271,7 @@ export const categories = [
     id: 'drinks',
     name: 'Drinks',
     emoji: '🥤',
+    image: chibwantuImg,
     description: 'Traditional beverages & refreshers',
     gradient: 'from-zambia-400 to-zambia-600',
     filterTags: ['drink'],
